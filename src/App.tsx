@@ -11,27 +11,27 @@ import { demoXML } from './demoXML';
 
 function App() {
   const [valueXML, setValueXML] = useState(demoXML);
-  const onChangeXML = useCallback((val: any, _viewUpdate) => {
+  const onChangeXML = useCallback((val: any) => {
     console.log('val:', val);
     setValueXML(val);
-    XML.parseString(val, (err, result) => {
+    XML.parseString(val, (_err, result) => {
       console.dir(result);
       setValueReq(YAML.stringify(result));
     });
   }, []);
 
   const [valueReq, setValueReq] = useState("");
-  const onChangeReq = useCallback((val: any, _viewUpdate) => {
+  const onChangeReq = useCallback((val: any) => {
     console.log('val:', val);
     setValueReq(val);
-    
+
     const builder = new XML.Builder();
     const xml = builder.buildObject(YAML.parse(val));
     setValueXML(xml);
   }, []);
 
   useEffect(() => {
-    XML.parseString(demoXML, (err, result) => {
+    XML.parseString(demoXML, (_err, result) => {
       console.dir(result);
       setValueReq(YAML.stringify(result));
     });
