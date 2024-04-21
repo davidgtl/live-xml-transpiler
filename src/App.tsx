@@ -14,9 +14,11 @@ function App() {
   const onChangeXML = useCallback((val: any) => {
     console.log('val:', val);
     setValueXML(val);
-    XML.parseString(val, (_err, result) => {
+    XML.parseString(val, (err, result) => {
       console.dir(result);
-      setValueReq(YAML.stringify(result));
+      if (!err) {
+        setValueReq(YAML.stringify(result));
+      }
     });
   }, []);
 
@@ -31,9 +33,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    XML.parseString(demoXML, (_err, result) => {
+    XML.parseString(demoXML, (err, result) => {
       console.dir(result);
-      setValueReq(YAML.stringify(result));
+      if (!err) {
+        setValueReq(YAML.stringify(result));
+      }
     });
   }, []);
 
